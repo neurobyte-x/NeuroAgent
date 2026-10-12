@@ -1,5 +1,5 @@
 import streamlit as st
-from langgraph_backend import chatbot, generate_chat_name_from_message, save_uploaded_image
+from langgraph_backend import chatbot_with_memory as chatbot, generate_chat_name_from_message, save_uploaded_image
 from langchain_core.messages import HumanMessage, AIMessage
 import uuid
 

@@ -7,7 +7,7 @@ import json
 import sqlite3
 import threading
 import nest_asyncio
-import google.generativeai as genai
+from google import genai
 from dotenv import load_dotenv
 from langchain_community.tools import DuckDuckGoSearchRun
 from langchain_core.messages import BaseMessage, HumanMessage
@@ -22,19 +22,8 @@ from langchain_community.utilities import (
     GoogleSerperAPIWrapper,
     OpenWeatherMapAPIWrapper,
 )
-from composio_langchain import ComposioToolSet, App
 
 from PIL import Image
-from composio_langchain import ComposioToolSet
-
-composio_toolset = ComposioToolSet(api_key="ak_2DVqmcP98xxnmcJ-NNvW")
-
-try:
-    from playwright.sync_api import sync_playwright
-    from playwright.async_api import async_playwright
-    PLAYWRIGHT_AVAILABLE = True
-except ImportError:
-    PLAYWRIGHT_AVAILABLE = False
 
 try:
     from langchain_experimental.utilities import PythonREPL
@@ -145,9 +134,7 @@ def image_reasoning_tool(image_path: str) -> str:
         if not os.path.exists(image_path):
             return f"Error: Image not found at {image_path}"
 
-        genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-
-        model = genai.GenerativeModel("gemini-2.5-pro")
+        client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
 
         image = Image.open(image_path)
 
@@ -161,7 +148,7 @@ def image_reasoning_tool(image_path: str) -> str:
             "Be thorough, specific, and helpful in your analysis."
         )
 
-        response = model.generate_content([prompt, image])
+        response = client.models.generate_content(model="gemini-2.5-pro", contents=[prompt, image])
 
         return response.text.strip() if response.text else "Unable to analyze the image."
     
@@ -481,8 +468,12 @@ graph.add_node('tools', tool_node)
 graph.add_edge(START, 'chat_node')
 graph.add_conditional_edges('chat_node', tools_condition)
 graph.add_edge('tools', 'chat_node')
-chatbot = graph.compile(checkpointer=checkpointer)
 
+# Compile without checkpointer for LangGraph API (it handles persistence automatically)
+chatbot = graph.compile()
+
+# Compile with checkpointer for local Streamlit use
+chatbot_with_memory = graph.compile(checkpointer=checkpointer)
 
 
 def retrieve_all_threads():
