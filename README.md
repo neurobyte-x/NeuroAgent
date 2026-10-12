@@ -1,4 +1,4 @@
-# 🤖 LangGraph AI Agent - Multi-Tool Chatbot
+# 🤖 NeuroAgent - Multi-Tool Chatbot
 
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![LangChain](https://img.shields.io/badge/LangChain-🦜-green.svg)](https://github.com/langchain-ai/langchain)
@@ -53,8 +53,8 @@ An intelligent AI chatbot powered by **Google Gemini 2.5 Flash**, **LangChain**,
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/neurobyte-x/Chatbot_with_features.git
-   cd Chatbot_with_features
+   git clone https://github.com/neurobyte-x/NeuroAgent.git
+   cd NeuroAgent
    ```
 
 2. **Install dependencies**
@@ -129,7 +129,7 @@ Bot: [Executes multiple tools in sequence]
 ## 🏗️ Project Structure
 
 ```
-Chatbot_With_UI/
+NeuroAgent/
 ├── langgraph_backend.py      # Core backend logic with tools
 ├── streamlit_frontend.py      # Streamlit UI interface
 ├── requirements.txt           # Python dependencies
@@ -318,7 +318,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Author**: neurobyte-x
 
 - GitHub: [@neurobyte-x](https://github.com/neurobyte-x)
-- Project Link: [https://github.com/neurobyte-x/Chatbot_with_features](https://github.com/neurobyte-x/Chatbot_with_features)
+- Project Link: [https://github.com/neurobyte-x/Chatbot_with_features](https://github.com/neurobyte-x/NeuroAgent)
 
 ## 🗺️ Roadmap
 
